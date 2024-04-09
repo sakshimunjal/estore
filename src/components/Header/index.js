@@ -1,7 +1,11 @@
-import './_header.scss'
+import './_header.scss';
+import {useSelector} from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     const dropdown = ['Women', 'Men', 'Kids'];
+    const cartItems = useSelector(state => state.cartReducer.totalQuantity);
+    console.log("acrt items ", cartItems)
     return(<>
         <div className="header bg-dark">
             <div className="row top-nav-row">
@@ -28,7 +32,17 @@ export default function Header() {
                 <div className="cart-wishlist">
                     <ul className="p-0">
                         <li className="list-icon"><i className="fa fa-heart"/></li>
-                        <li className="list-icon"><i className="fa fa-shopping-cart"/></li>
+                        <Link to='/cart'>
+                            <li className="list-icon">
+                                <i className="fa fa-shopping-cart"/>
+                                {cartItems > 0 ? 
+                                    <div id="cart-item-count">
+                                        <p>{cartItems}</p>
+                                    </div> 
+                                : <></>}
+                            </li>
+                        </Link>
+                        
                     </ul>
                 </div>
             </div>
